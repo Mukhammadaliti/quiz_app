@@ -58,6 +58,15 @@ class QuestionController extends GetxController
     super.onInit();
   }
 
+  // // called just befor the Controller is deleted from memory
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+    _animationController.dispose();
+    _pageController.dispose();
+  }
+
   void checkAns(Question question, int selectedIndex) {
     // because once user press any option then it will run
     _isAnswer = true;
@@ -73,17 +82,21 @@ class QuestionController extends GetxController
       nextQuestion();
     });
   }
+
   void nextQuestion() {
-    if (_questionNumber.value != _questions.length)
-    {
-       _isAnswer = false;
+    if (_questionNumber.value != _questions.length) {
+      _isAnswer = false;
       _pageController.nextPage(
           duration: Duration(milliseconds: 250), curve: Curves.ease);
-          // Reset the counter
-          _animationController.reset();
-          // Then start it again
-          // Once timer is finish go to the next qn
-          _animationController.forward().whenComplete(nextQuestion);
+      // Reset the counter
+      _animationController.reset();
+      // Then start it again
+      // Once timer is finish go to the next qn
+      _animationController.forward().whenComplete(nextQuestion);
     }
+  }
+
+  void updateTheQnNum(int index) {
+    _questionNumber.value = index + 1;
   }
 }
