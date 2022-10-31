@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:quiz_app/model/model.dart';
+import 'package:quiz_app/screen/score/score_screen.dart';
 
 class QuestionController extends GetxController
     with SingleGetTickerProviderMixin
@@ -93,6 +94,8 @@ class QuestionController extends GetxController
       // Then start it again
       // Once timer is finish go to the next qn
       _animationController.forward().whenComplete(nextQuestion);
+    } else {
+      Get.to(ScoreScreen());
     }
   }
 
